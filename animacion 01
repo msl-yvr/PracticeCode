@@ -1,0 +1,60 @@
+#include "pch.h"
+#include <iostream>
+#include <conio.h>
+#include <windows.h>
+
+using namespace System;
+using namespace std;
+
+const int WIDTH = 60;
+ const int HIGTH = 20;
+
+void locateXY(int x, int y) {
+    Console::SetCursorPosition(x, y);
+}
+
+void deleteXY(int x, int y) {
+    locateXY(x, y);
+    cout << ".";
+}
+
+void draw(int& x, int& y, char character) {
+
+    deleteXY(x, y);
+    //movement
+    if (x==1 && y < HIGTH - 1) y++;
+    else if (y == HIGTH - 1 && x<10) x++;
+    else if (x == 10&&y>0) y--;
+    else if (y == 0 && x < 20) x++;
+    else if (x==20 && y < HIGTH - 1) y++;
+    else if (y == HIGTH - 1 && x < 30) x++;
+    else if (x == 30 && y > 0) y--;
+    else if (y == 0 && x < 40) x++;
+    else if (x == 40 && y < HIGTH - 1) y++;
+    else if (y == HIGTH - 1 && x < 50) x++;
+    else if (x == 50 && y > 0) y--;
+    else if (y == 0 && x < 60) x++;
+    else if (x == 60 && y < HIGTH - 1) y++;
+
+    locateXY(x, y);
+    cout << character;
+}
+
+int main() {
+    int x = 1, y = 0;
+    char character = '*';
+  
+    locateXY(x, y);
+    cout << character;
+
+    do{
+        draw(x, y,  character);
+        _sleep(30);
+        if (x == 60 && y==19)break;
+    } while (true);
+
+    cout << "...FIN...";
+
+    system("pause>0");
+    return 0;
+}
