@@ -1,0 +1,79 @@
+#include "pch.h"
+#include <iostream>
+#include <cstdlib>
+#include <ctime>
+
+using namespace System;
+using namespace std;
+
+char generateRandomCharacter() {
+    char randomChar;
+    return randomChar = 'A' + rand() % 26;
+}
+
+int validate_n() {
+    int n;
+    do{
+        cout << "Ingrese un numero: ";
+        cin >> n;
+        if (n < 3 || n >= 10){
+            cout << "n es menor a 10 y mayor o igual a 3): ";
+            cin >> n;
+        }
+    } while (n<3||n>=10);
+    return n;
+}
+
+void drawHourglass(int n) {
+
+    for (int i = 0; i < n; i++){
+        //draw first part
+        for (int i = n; i > 0; i--) {
+            //spaces
+            for (int e = 0; e < n - i; e++) {
+                cout << " ";
+            }
+            //mitadad del triangulo 1
+            for (int j = i; j > 0; j--) {
+                cout << generateRandomCharacter();
+            }
+            //mitadad del triangulo 2
+            for (int j = 0; j < i; j++) {
+                cout << generateRandomCharacter();
+                //spaces
+            }
+            cout << endl;
+        }
+
+        //draw second part
+        for (int i = 0; i < n; i++) {
+            //spaces
+            for (int e = (n - 1) - i; e > 0; e--) {
+                cout << " ";
+            }
+            //mitad 1
+            for (int j = 0; j <= i; j++) {
+                cout << generateRandomCharacter();
+            }
+            //mitad 2
+            for (int j = 0; j <= i; j++) {
+                cout << generateRandomCharacter();
+            }
+            cout << endl;
+        }
+        cout << endl;
+    }
+    
+}
+
+int main() {
+    srand(time(0));
+
+    //we enter n
+    int n = validate_n();
+    cout << endl;
+    drawHourglass(n);
+
+    system("pause>0");
+    return 0;
+}
