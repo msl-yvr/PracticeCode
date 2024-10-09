@@ -1,0 +1,83 @@
+#include "pch.h"
+#include <iostream>
+
+using namespace System;
+using namespace std;
+
+void printMenu() {
+	cout << "¿Cual es tu opcion favorita?" << endl;
+	cout << "1. Opcion 1" << endl;
+	cout << "2. Opcion 2" << endl;
+	cout << "3. Opcion 3" << endl;
+	cout << "0. Finalizar la encuesta" << endl;
+}
+
+void updateData(int* counter1, int* counter2, int* counter3, int answer) {
+	switch (answer){
+	case 1:(*counter1)++; break;	
+	case 2:(*counter2)++; break;
+	case 3:(*counter3)++; break;
+	}
+}
+void calculateResults(int* counter1, int* counter2, int* counter3,
+	double* porcent1, double* porcent2, double* porcent3) {
+
+	//total votes
+	int sum;
+	sum = (*counter1) + (*counter2) + (*counter3);
+
+	if (sum > 0) {
+		*porcent1 = (*counter1 * 100.0) /sum ;
+		*porcent2 = (*counter2 * 100.0) / sum;
+		*porcent3 = (*counter3 * 100.0) / sum;
+	}
+	else {
+		(*porcent1) = (*porcent2) = (*porcent3) = 0.0;
+	}
+
+}
+
+void printResults(int counter1, int counter2, int counter3, 
+	double porcent1, double porcent2, double porcent3) {
+	cout << "--------Resultados de la Encuesta---------" << endl;
+	cout << " Opcion 1: " << counter1 << " votos (" << porcent1 << "%)" << endl;
+	cout << " Opcion 2: " << counter2 << " votos (" << porcent2 << "%)" << endl;
+	cout << " Opcion 3: " << counter3 << " votos (" << porcent3 << "%)" << endl;
+
+}
+
+int main(){
+	//on the heap
+	int* counter1 = new int(0);
+	int* counter2 = new int(0);
+	int* counter3 = new int(0);
+	double* porcent1 = new double(0.0);
+	double* porcent2 = new double(0.0);
+	double* porcent3 = new double(0.0);
+
+	//on the stak
+	int answer;
+
+	printMenu();
+
+	do{
+		cout << "Elije una opcion (1,2,3) o 0 para finalizar: ";
+		cin >> answer;
+		if (answer>=0 && answer <=3){
+			updateData(counter1, counter2, counter3, answer);
+		}
+	} while (answer!=0);
+	calculateResults(counter1, counter2, counter3, porcent1, porcent2, porcent3);
+	printResults(*counter1, *counter2, *counter3, *porcent1, *porcent2, *porcent3);
+
+	//clean
+	delete counter1;
+	delete counter2;
+	delete counter3;
+	delete porcent1;
+	delete porcent2;
+	delete porcent3;
+
+	system("pause>0");
+	return 0;
+}
