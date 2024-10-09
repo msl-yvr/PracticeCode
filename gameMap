@@ -1,0 +1,69 @@
+#include "pch.h"
+#include <iostream>
+#include <conio.h> //Para kbhit() y getch()
+
+
+using namespace System;
+using namespace std;
+
+void showMap(int* x, int* y, int sizeMap) {
+	system("cls");
+	for (int r = 0; r  < sizeMap; r ++){
+		for (int c = 0; c < sizeMap; c++){
+			if (r == *y && c == *x) {
+				cout << "*";
+			}
+			else cout << ".";
+		}
+		cout << endl;
+	}
+}
+
+void moveCharacter(char keyPressed, int* x, int* y, int sizeMap) {
+	
+	switch (keyPressed){
+	case 'w':
+		if (*y > 0)(*y)--; 
+		break;
+	case 's':
+		if (*y < sizeMap-1)(*y)++;
+		break;
+	case 'a':
+		if (*x > 0)(*x)--;
+		break;
+	case 'd':
+		if (*x < sizeMap-1)(*x)++;
+		break;
+	}
+}
+
+
+int main(){
+	//reservation on the Heap
+	int* x = new int(0);
+	int* y = new int(0);
+	//reservation on the Stak
+	int sizeMap = 20;
+	char keyPressed;
+
+
+	cout << "Utiliza 'w', 's','a','d' para moverte. Presiona 'q' para salir" << endl;
+	do{
+		if (_kbhit()){
+			keyPressed = _getch();
+			if (keyPressed == 'q') break;
+
+			moveCharacter(keyPressed, x, y, sizeMap);
+			showMap(x, y, sizeMap);
+			cout << "Movement in (x,y)" << endl;
+			cout << "x: " << *x << " y:" << *y << endl;
+		}
+
+	} while (true);
+
+	delete x;
+	delete y;
+
+	system("pause>0");
+	return 0;
+}
