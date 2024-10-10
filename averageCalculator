@@ -1,0 +1,62 @@
+#include "pch.h"
+#include <iostream>
+#include <conio.h>  // Para kbhit() y getch()
+
+
+using namespace std;
+using namespace System;
+
+void mostrarEstilo() {
+	cout << "--------------SIMULADOR DE PROMEDIO------------" << endl;
+}
+void agregarCalificacion(int* suma, int* contador) {
+	int nota;
+	cout << "Ingrese una nota: ";
+	cin >> nota;
+	(*contador)++;
+	(*suma) += nota;
+}
+
+void calcularpromedio(int* suma, int* contador, double* promedio) {
+
+	if (*contador != 0) {
+		*promedio = (*suma) / (*contador);
+	}
+	else cout << "error, se puede dividir entre 0";
+}
+
+void imprimirPromedio(int suma, int contador, double promedio) {
+	cout << "La cantidad de notas (" << contador <<")  Promedio (" << promedio <<")"<<endl;
+}
+
+int main() {
+	//reservamos espacion en el STACK
+	int* suma = new int(0);
+	int* contador = new int(0);
+	double* promedio = new double(0.0);
+
+	mostrarEstilo();
+	agregarCalificacion(suma, contador);
+	while (true) {
+		cout << "Desea anadir otra calificacion ('s' para si, 'n' para no): ";
+		char keyEnter;
+		cin >> keyEnter;
+		if (keyEnter == 's') {
+			agregarCalificacion(suma, contador);
+		}
+		else if (keyEnter == 'n') {
+			calcularpromedio(suma, contador, promedio);
+			break;
+		}
+	}
+	cout << endl;
+	imprimirPromedio(*suma, *contador, *promedio);
+
+	//eliminamos la memoria reservada en el HEAP
+	delete suma;
+	delete contador;
+	delete promedio;
+
+    system("pause>0");
+    return 0;
+}
