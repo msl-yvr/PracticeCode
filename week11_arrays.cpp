@@ -127,7 +127,7 @@ int main() {
               cout << "Opción no válida. Intente nuevamente." << endl;
               break;
           }
-      } while (option!=6);
+      } while (option!=5);
 
     system("pause>0");
     return 0;
